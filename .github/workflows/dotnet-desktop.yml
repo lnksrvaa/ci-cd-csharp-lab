@@ -19,10 +19,10 @@ jobs:
         dotnet-version: '8.0.x' # Версия .NET SDK
 
     - name: Restore dependencies
-      run: dotnet restore # Восстановление зависимостей проекта
+      run: dotnet restore CalculatorApp.sln # Указываем конкретный файл решения
 
     - name: Build
-      run: dotnet build --no-restore # Компиляция проекта без повторного восстановления зависимостей
+      run: dotnet build CalculatorApp.sln --no-restore # Собираем всё решение целиком
 
     - name: Test
-      run: dotnet test # Запуск модульных тестов
+      run: dotnet test CalculatorApp.sln --no-restore # Запускаем тесты для всего решения
