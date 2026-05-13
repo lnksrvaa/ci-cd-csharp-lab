@@ -18,8 +18,15 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Build and Test
+    - name: Restore
       run: |
-        dotnet restore
-        dotnet build --no-restore
-        dotnet test --no-restore
+        dotnet restore CalculatorApp/CalculatorApp.csproj
+        dotnet restore CalculatorApp.Tests.csproj
+
+    - name: Build
+      run: |
+        dotnet build CalculatorApp/CalculatorApp.csproj --no-restore
+        dotnet build CalculatorApp.Tests.csproj --no-restore
+
+    - name: Test
+      run: dotnet test CalculatorApp.Tests.csproj --no-restore
