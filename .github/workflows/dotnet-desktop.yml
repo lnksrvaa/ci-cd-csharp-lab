@@ -18,15 +18,17 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
+    - name: Clean and Restore
       run: |
+        dotnet clean CalculatorApp/CalculatorApp.csproj
+        dotnet clean CalculatorApp.Tests.csproj
         dotnet restore CalculatorApp/CalculatorApp.csproj
         dotnet restore CalculatorApp.Tests.csproj
 
     - name: Build
       run: |
-        dotnet build CalculatorApp/CalculatorApp.csproj --no-restore
-        dotnet build CalculatorApp.Tests.csproj --no-restore
+        dotnet build CalculatorApp/CalculatorApp.csproj --configuration Release --no-restore
+        dotnet build CalculatorApp.Tests.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test CalculatorApp.Tests.csproj --no-restore
+      run: dotnet test CalculatorApp.Tests.csproj --configuration Release --no-restore
