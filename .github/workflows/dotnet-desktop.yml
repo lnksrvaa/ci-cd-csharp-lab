@@ -18,15 +18,13 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore
+    - name: Clean and Restore
       run: |
-        dotnet restore CalculatorApp/CalculatorApp.csproj
-        dotnet restore CalculatorApp.Tests.csproj
+        dotnet clean CalculatorApp.sln
+        dotnet restore CalculatorApp.sln
 
-    - name: Build
+    - name: Build and Test
       run: |
-        dotnet build CalculatorApp/CalculatorApp.csproj --no-restore
-        dotnet build CalculatorApp.Tests.csproj --no-restore
-
-    - name: Test
-      run: dotnet test CalculatorApp.Tests.csproj --no-restore
+        # Мы добавляем флаг -p:GenerateAssemblyInfo=false, чтобы убрать дубликаты
+        dotnet build CalculatorApp.sln --no-restore -p:GenerateAssemblyInfo=false
+        dotnet test CalculatorApp.sln --no-restore -p:GenerateAssemblyInfo=false
